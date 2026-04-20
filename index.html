@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="KcalzCounter — AI-powered calorie, macro, water and weight tracker for iOS. Snap a photo of your meal and log it in seconds." />
+<meta property="og:title" content="KcalzCounter — Calorie Tracker for iOS" />
+<meta property="og:description" content="Snap. Log. Reach your goal. AI-powered calorie and macro tracking for iOS." />
+<meta property="og:image" content="app-icon.png" />
+<title>KcalzCounter — AI Calorie Tracker for iOS</title>
+<style>
+  :root {
+    --bg: #0b1016;
+    --bg-2: #0f1722;
+    --surface: #151c27;
+    --surface-2: #1b2433;
+    --border: #222c3c;
+    --text: #eef2f7;
+    --text-muted: #8b97a8;
+    --accent: #4ade80;
+    --accent-2: #22c55e;
+    --accent-soft: rgba(74, 222, 128, 0.12);
+    --purple: #8b5cf6;
+    --pink: #ec4899;
+    --max: 1120px;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ========== NAV ========== */
+  nav.top {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11, 16, 22, 0.82);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.top .inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px; max-width: var(--max); margin: 0 auto;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand img { width: 34px; height: 34px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+  .brand span { font-weight: 600; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 24px; align-items: center; }
+  .nav-links a { color: var(--text-muted); font-size: 14px; }
+  .nav-links a:hover { color: var(--text); text-decoration: none; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 10px 18px; border-radius: 999px;
+    background: var(--accent); color: #0b1016;
+    font-weight: 600; font-size: 14px;
+    border: none; cursor: pointer;
+    transition: transform 0.1s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(74, 222, 128, 0.25); text-decoration: none; }
+  .btn.secondary {
+    background: transparent; color: var(--text); border: 1px solid var(--border);
+  }
+  .btn.secondary:hover { background: var(--surface); }
+
+  /* ========== HERO ========== */
+  .hero {
+    position: relative; overflow: hidden;
+    padding: 80px 0 60px;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: -10% -10% auto auto;
+    width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.25), transparent 60%);
+    filter: blur(40px); pointer-events: none;
+  }
+  .hero::after {
+    content: ""; position: absolute; bottom: -20%; left: -10%;
+    width: 460px; height: 460px; border-radius: 50%;
+    background: radial-gradient(circle at 50% 50%, rgba(74, 222, 128, 0.22), transparent 60%);
+    filter: blur(40px); pointer-events: none;
+  }
+  .hero .grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: 13px; font-weight: 500;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    margin-bottom: 20px;
+  }
+  h1.title {
+    font-size: 56px; letter-spacing: -0.03em; line-height: 1.05;
+    margin: 0 0 18px; font-weight: 700;
+  }
+  h1.title .grad {
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 40%, #8b5cf6 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p.lede {
+    color: var(--text-muted); font-size: 19px; max-width: 520px; margin: 0 0 28px;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .badge-app-store {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 18px; border-radius: 12px;
+    background: #000; color: #fff; border: 1px solid #222;
+    font-weight: 600;
+  }
+  .badge-app-store svg { width: 22px; height: 22px; }
+  .badge-app-store small { display: block; font-size: 10px; font-weight: 400; opacity: 0.75; line-height: 1; }
+  .badge-app-store .main { display: block; font-size: 16px; line-height: 1.1; }
+
+  /* ========== PHONE MOCKUP ========== */
+  .phone-col { display: flex; justify-content: center; }
+  .phone {
+    position: relative;
+    width: 300px;
+    aspect-ratio: 9 / 19.5;
+    background: #0b1016;
+    border-radius: 48px;
+    padding: 10px;
+    box-shadow:
+      0 0 0 2px #1b2433,
+      0 0 0 10px #0b1016,
+      0 40px 80px rgba(0,0,0,0.55),
+      0 0 0 11px #222c3c;
+  }
+  .phone .notch {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    width: 100px; height: 26px; background: #000; border-radius: 999px; z-index: 3;
+    pointer-events: none;
+  }
+  .phone .screen {
+    width: 100%; height: 100%; border-radius: 38px;
+    background: #f3f4f8;
+    overflow: hidden; position: relative;
+  }
+  .phone .screen img.shot {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    display: block;
+  }
+  .phone .glow {
+    position: absolute; inset: -40px;
+    background: radial-gradient(closest-side, rgba(139,92,246,0.25), transparent 70%);
+    z-index: -1; filter: blur(30px);
+  }
+  .screen .status {
+    padding: 14px 22px 0; display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--text-muted); font-weight: 500;
+  }
+  .screen .body { padding: 28px 18px 18px; }
+  .hello { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+  .user-name { font-size: 19px; font-weight: 700; margin-bottom: 18px; }
+
+  .ring-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 18px; padding: 16px; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .ring {
+    width: 72px; height: 72px; flex: 0 0 72px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0 68%, #2a3240 68% 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .ring::before {
+    content: ""; position: absolute; inset: 6px;
+    background: var(--surface); border-radius: 50%;
+  }
+  .ring .val { position: relative; z-index: 1; font-weight: 700; font-size: 15px; }
+  .ring-info .label { font-size: 11px; color: var(--text-muted); }
+  .ring-info .big { font-size: 17px; font-weight: 700; margin-top: 2px; }
+  .ring-info .sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+  .macros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .macro {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 10px; text-align: center;
+  }
+  .macro .dot { width: 8px; height: 8px; border-radius: 50%; margin: 0 auto 6px; }
+  .macro .name { font-size: 10px; color: var(--text-muted); }
+  .macro .num { font-size: 13px; font-weight: 700; margin-top: 2px; }
+  .macro.p .dot { background: #ef4444; }
+  .macro.c .dot { background: #f59e0b; }
+  .macro.f .dot { background: var(--purple); }
+
+  .meals-title { font-size: 12px; color: var(--text-muted); margin: 8px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .meal {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; margin-bottom: 6px;
+  }
+  .meal-ic {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex; align-items: center; justify-content: center; font-size: 14px;
+  }
+  .meal-title { font-size: 12px; font-weight: 600; }
+  .meal-sub { font-size: 10px; color: var(--text-muted); }
+  .meal-kcal { margin-left: auto; font-size: 12px; font-weight: 600; }
+
+  /* ========== SECTIONS ========== */
+  section { padding: 80px 0; position: relative; }
+  section.alt { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  h2.section-title {
+    font-size: 40px; letter-spacing: -0.02em; margin: 0 0 14px; font-weight: 700;
+  }
+  p.section-lead { color: var(--text-muted); font-size: 18px; max-width: 640px; margin: 0 auto 48px; }
+  .center { text-align: center; }
+
+  /* Features */
+  .features {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .feature {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 26px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .feature:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .feature .ic {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--accent-soft); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .feature h3 { font-size: 17px; margin: 0 0 6px; font-weight: 600; }
+  .feature p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+  /* Screens row */
+  .screens {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    margin-top: 12px;
+  }
+  .mini-phone {
+    position: relative; width: 100%; max-width: 240px; margin: 0 auto;
+    aspect-ratio: 9 / 19.5;
+    background: #0b1016; border-radius: 40px; padding: 8px;
+    box-shadow: 0 0 0 2px #1b2433, 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .mini-phone .mini-screen {
+    width: 100%; height: 100%; border-radius: 32px; overflow: hidden;
+    position: relative; background: #f3f4f8;
+  }
+  .mini-phone .mini-screen img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top center;
+    display: block;
+  }
+  .screen-1 { background: linear-gradient(160deg, #0f2116 0%, #0b1016 70%); }
+  .screen-2 { background: linear-gradient(160deg, #1a0d2e 0%, #0b1016 70%); }
+  .screen-3 { background: linear-gradient(160deg, #0e2232 0%, #0b1016 70%); }
+
+  .screen-label { text-align: center; margin-top: 18px; font-size: 14px; color: var(--text-muted); }
+  .screen-label strong { color: var(--text); display: block; font-size: 15px; margin-bottom: 2px; }
+
+  .mini-content { padding: 32px 14px 14px; color: var(--text); }
+  .mini-content h4 { font-size: 14px; margin: 0 0 10px; }
+  .scan-frame {
+    width: 130px; height: 130px; margin: 30px auto 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(74,222,128,0.25), rgba(139,92,246,0.25));
+    position: relative;
+  }
+  .scan-frame::before, .scan-frame::after, .corner-br, .corner-bl {
+    content: ""; position: absolute; width: 18px; height: 18px;
+    border: 2px solid var(--accent);
+  }
+  .scan-frame::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+  .scan-frame::after { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+  .corner-br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+  .corner-bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+  .scan-bar {
+    position: absolute; top: 50%; left: 8px; right: 8px; height: 2px;
+    background: var(--accent); box-shadow: 0 0 12px var(--accent);
+    transform: translateY(-50%);
+  }
+
+  .weight-chart {
+    margin-top: 30px; height: 130px; position: relative;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 12px;
+  }
+  .weight-chart svg { width: 100%; height: 100%; }
+
+  .water-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 20px; }
+  .water-cup {
+    aspect-ratio: 1; border-radius: 12px; background: var(--surface);
+    border: 1px solid var(--border); display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .water-cup.filled { background: linear-gradient(180deg, #1e3a8a 0%, #2563eb 100%); border-color: #3b82f6; }
+
+  /* Pricing */
+  .pricing-card {
+    max-width: 420px; margin: 0 auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
+    padding: 32px; text-align: center;
+  }
+  .pricing-card .price { font-size: 44px; font-weight: 700; letter-spacing: -0.02em; margin: 8px 0 4px; }
+  .pricing-card .price small { font-size: 15px; color: var(--text-muted); font-weight: 500; }
+  .pricing-card .trial { color: var(--accent); font-weight: 600; margin-bottom: 20px; }
+  .pricing-list { text-align: left; list-style: none; padding: 0; margin: 20px 0 28px; }
+  .pricing-list li { padding: 6px 0; display: flex; gap: 10px; align-items: center; font-size: 15px; }
+  .pricing-list li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+  /* Press Kit */
+  .kit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .kit-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+  }
+  .kit-card h3 { font-size: 17px; margin: 0 0 14px; }
+  .kit-card p, .kit-card li { font-size: 14px; color: var(--text-muted); }
+  .fact-list { list-style: none; padding: 0; margin: 0; }
+  .fact-list li { padding: 10px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: 12px; }
+  .fact-list li:last-child { border-bottom: none; }
+  .fact-list .k { color: var(--text-muted); }
+  .fact-list .v { color: var(--text); font-weight: 500; text-align: right; }
+
+  .asset-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .asset {
+    flex: 1 1 140px;
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px; text-align: center;
+  }
+  .asset img { width: 70px; height: 70px; border-radius: 14px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+  .asset .name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+  .asset a { font-size: 12px; color: var(--accent); }
+
+  .copy-box {
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px; font-size: 13px; color: var(--text); line-height: 1.55;
+    position: relative;
+  }
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--surface-2); color: var(--text-muted);
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px 10px; font-size: 11px; cursor: pointer;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  /* Footer */
+  footer.site-footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 0 60px;
+    color: var(--text-muted); font-size: 13px;
+  }
+  footer .inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  footer .links { display: flex; gap: 20px; }
+
+  /* Responsive */
+  @media (max-width: 820px) {
+    .hero .grid { grid-template-columns: 1fr; gap: 40px; }
+    h1.title { font-size: 40px; }
+    .features, .screens, .kit-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .nav-links .btn { display: inline-flex; }
+  }
+  @media (max-width: 540px) {
+    h1.title { font-size: 32px; }
+    h2.section-title { font-size: 28px; }
+    section { padding: 60px 0; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top">
+  <div class="inner">
+    <a href="#" class="brand" style="text-decoration:none;color:inherit;">
+      <img src="app-icon.png" alt="KcalzCounter" />
+      <span>KcalzCounter</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#screens">Screens</a>
+      <a href="#press">Press Kit</a>
+      <a href="privacy-policy.html">Privacy</a>
+      <a href="#download" class="btn">Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">
+          <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></span>
+          Now available on iOS
+        </span>
+        <h1 class="title">
+          Snap, log,<br />
+          <span class="grad">reach your goal.</span>
+        </h1>
+        <p class="lede">
+          KcalzCounter is the AI-powered calorie tracker that turns a photo of your meal into a full
+          nutrition log in seconds. Track macros, water, weight and exercise — without the spreadsheet.
+        </p>
+        <div class="cta-row" id="download">
+          <a class="badge-app-store" href="#" aria-label="Download on the App Store">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.06c-.023-2.32 1.9-3.44 1.99-3.49-1.083-1.59-2.766-1.81-3.366-1.83-1.432-.148-2.803.848-3.538.848-.747 0-1.859-.832-3.05-.808-1.566.023-3.022.925-3.828 2.334-1.65 2.86-.421 7.096 1.19 9.413.793 1.132 1.732 2.402 2.96 2.356 1.2-.05 1.65-.763 3.099-.763 1.438 0 1.855.763 3.112.737 1.285-.023 2.096-1.147 2.88-2.287.917-1.31 1.29-2.593 1.313-2.66-.028-.012-2.52-.967-2.544-3.83zM15.22 5.73c.66-.807 1.104-1.92.982-3.03-.953.039-2.106.636-2.788 1.432-.612.703-1.147 1.834-1.003 2.92 1.065.082 2.151-.54 2.81-1.322z"/></svg>
+            <span>
+              <small>Download on the</small>
+              <span class="main">App Store</span>
+            </span>
+          </a>
+          <a class="btn secondary" href="#press">View Press Kit</a>
+        </div>
+        <p style="margin-top:18px;color:var(--text-muted);font-size:13px;">
+          3-day free trial · Works with Apple Health · English &amp; Português
+        </p>
+      </div>
+      <div class="phone-col">
+        <div class="phone">
+          <div class="glow"></div>
+          <div class="notch"></div>
+          <div class="screen">
+            <img class="shot" src="home-screenshot.jpeg" alt="KcalzCounter home screen showing daily calorie remainder, macros, hydration and activity" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- FEATURES -->
+<section id="features" class="alt">
+  <div class="wrap">
+    <div class="center">
+      <h2 class="section-title">Everything you need to hit your goal.</h2>
+      <p class="section-lead">Nutrition tracking that actually fits your life. No databases to search. No guesswork.</p>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <h3>AI Food Scan</h3>
+        <p>Point your camera at the plate and get calories, macros and portion size back in seconds.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Apple Health</h3>
+        <p>Syncs bidirectionally with HealthKit: active calories in, weight out, all on-device.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+        </div>
+        <h3>Water Tracker</h3>
+        <p>Tap to log glasses, bottles or cups. Daily hydration goal with gentle reminders.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3>Weight Evolution</h3>
+        <p>Clean charts that show the trend, not just the noise. Weekly averages and velocity vs. goal.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Home Screen Widget</h3>
+        <p>Check calories left, water and steps without opening the app. Small, medium and large sizes.</p>
+      </div>
+      <div class="feature">
+        <div class="ic">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Private by design</h3>
+        <p>Your profile, meals, weight and health data stay on your device. No accounts, no selling data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENS -->
+<section id="screens">
+  <div class="wrap">
+    <div class="center">
+      <h2 class="section-title">Designed for the thumb.</h2>
+      <p class="section-lead">Logging takes three taps. Everything else gets out of the way.</p>
+    </div>
+    <div class="screens">
+      <div>
+        <div class="mini-phone"><div class="mini-screen">
+          <img src="home-screenshot.jpeg" alt="Home screen with daily calorie remainder, macros, hydration and activity" />
+        </div></div>
+        <div class="screen-label"><strong>Daily Summary</strong>Calories, macros &amp; activity at a glance</div>
+      </div>
+      <div>
+        <div class="mini-phone"><div class="mini-screen">
+          <img src="meal-screenshot.jpeg" alt="Meal detail screen showing a burger lunch with macronutrient breakdown and foods list" />
+        </div></div>
+        <div class="screen-label"><strong>Meal Detail</strong>Macros, foods &amp; easy portion editing</div>
+      </div>
+      <div>
+        <div class="mini-phone"><div class="mini-screen">
+          <img src="daily-screenshot.jpeg" alt="Calendar view with day summary and hydration" />
+        </div></div>
+        <div class="screen-label"><strong>Calendar &amp; History</strong>Jump to any day, see the whole picture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="alt">
+  <div class="wrap center">
+    <h2 class="section-title">Try it free for 3 days.</h2>
+    <p class="section-lead">One subscription. Every feature. Cancel anytime from your Apple ID.</p>
+    <div class="pricing-card">
+      <div style="color:var(--text-muted);font-size:13px;text-transform:uppercase;letter-spacing:0.08em;">KcalzCounter Premium</div>
+      <div class="price">$29.99 <small>/ year</small></div>
+      <div class="trial">3-day free trial</div>
+      <ul class="pricing-list">
+        <li>Unlimited AI food scans</li>
+        <li>Full macro &amp; micro breakdown</li>
+        <li>Apple Health sync</li>
+        <li>Home Screen widget</li>
+        <li>Smart meal &amp; water reminders</li>
+      </ul>
+      <a class="btn" href="#" style="width:100%;">Start free trial</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRESS KIT -->
+<section id="press">
+  <div class="wrap">
+    <div class="center">
+      <h2 class="section-title">Press Kit</h2>
+      <p class="section-lead">Everything you need to write about KcalzCounter. For interview requests, email <a href="mailto:felipe.demetrius@gmail.com">felipe.demetrius@gmail.com</a>.</p>
+    </div>
+
+    <div class="kit-grid">
+      <div class="kit-card">
+        <h3>Quick Facts</h3>
+        <ul class="fact-list">
+          <li><span class="k">App name</span><span class="v">KcalzCounter</span></li>
+          <li><span class="k">Tagline</span><span class="v">Snap, log, reach your goal.</span></li>
+          <li><span class="k">Category</span><span class="v">Health &amp; Fitness</span></li>
+          <li><span class="k">Platform</span><span class="v">iOS 18+</span></li>
+          <li><span class="k">Languages</span><span class="v">English · Português (BR)</span></li>
+          <li><span class="k">Price</span><span class="v">Free · $29.99/yr Premium</span></li>
+          <li><span class="k">Trial</span><span class="v">3 days free</span></li>
+          <li><span class="k">Release</span><span class="v">2026</span></li>
+          <li><span class="k">Developer</span><span class="v">Holistic Apps LTDA</span></li>
+          <li><span class="k">Contact</span><span class="v"><a href="mailto:felipe.demetrius@gmail.com">felipe.demetrius@gmail.com</a></span></li>
+        </ul>
+      </div>
+
+      <div class="kit-card">
+        <h3>About</h3>
+        <div style="font-size:13px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em;">Short — 1 sentence</div>
+        <div class="copy-box">
+          <button class="copy-btn" onclick="copyText(this,'short1')">Copy</button>
+          <span id="short1">KcalzCounter is an AI-powered calorie and macro tracker for iOS that turns a photo of your meal into a full nutrition log in seconds.</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin:16px 0 8px;text-transform:uppercase;letter-spacing:0.05em;">Medium — 2 sentences</div>
+        <div class="copy-box">
+          <button class="copy-btn" onclick="copyText(this,'med1')">Copy</button>
+          <span id="med1">KcalzCounter is a privacy-first calorie tracker for iOS, built around an AI food-scan camera that identifies your meal and logs calories, protein, carbs and fat in seconds. It syncs with Apple Health, tracks water and weight, and keeps every byte of your personal data on-device.</span>
+        </div>
+        <div style="font-size:13px;color:var(--text-muted);margin:16px 0 8px;text-transform:uppercase;letter-spacing:0.05em;">Long — press boilerplate</div>
+        <div class="copy-box">
+          <button class="copy-btn" onclick="copyText(this,'long1')">Copy</button>
+          <span id="long1">KcalzCounter is an AI-powered nutrition tracker for iPhone that removes the single biggest reason people quit calorie counting: manual entry. Users point the camera at their plate, and the app returns an identified meal, portion estimate and full macro breakdown in seconds. Built in Swift as a single-developer indie app, KcalzCounter integrates with Apple Health, supports Home Screen widgets, and ships in English and Brazilian Portuguese. Privacy is a core design constraint: personal profile, meals, weight history and HealthKit data stay on the device — KcalzCounter does not operate a backend that stores user health data.</span>
+        </div>
+      </div>
+
+      <div class="kit-card">
+        <h3>Brand Assets</h3>
+        <p style="margin-top:0">App icon and wordmark. Please keep clear space and don't recolor the logo.</p>
+        <div class="asset-row">
+          <div class="asset">
+            <img src="app-icon.png" alt="App icon" />
+            <div class="name">App Icon (PNG)</div>
+            <a href="app-icon.png" download>Download 256×256</a>
+          </div>
+      </div>
+
+      <div class="kit-card">
+        <h3>Screenshots</h3>
+        <p style="margin-top:0">High-resolution App Store screenshots are available on request. For editorial use, please credit "KcalzCounter / Felipe Demetrius".</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px;">
+          <div style="aspect-ratio:9/19.5;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#f3f4f8;">
+            <img src="home-screenshot.jpeg" alt="Home" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" />
+          </div>
+          <div style="aspect-ratio:9/19.5;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#f3f4f8;">
+            <img src="meal-screenshot.jpeg" alt="Meal detail" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" />
+          </div>
+          <div style="aspect-ratio:9/19.5;border-radius:14px;overflow:hidden;border:1px solid var(--border);background:#f3f4f8;">
+            <img src="daily-screenshot.jpeg" alt="Calendar" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;" />
+          </div>
+        </div>
+        <p style="margin-top:14px;font-size:12px;">
+          <a href="home-screenshot.jpeg" download>Home</a> ·
+          <a href="meal-screenshot.jpeg" download>Meal detail</a> ·
+          <a href="daily-screenshot.jpeg" download>Calendar</a> ·
+          <a href="mailto:felipe.demetrius@gmail.com?subject=KcalzCounter%20screenshots">Request full pack →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="alt" style="padding:60px 0;">
+  <div class="wrap center">
+    <h2 class="section-title" style="font-size:32px;">Ready to log your first meal?</h2>
+    <p class="section-lead" style="margin-bottom:24px;">Download KcalzCounter and get a 3-day free trial — no commitment.</p>
+    <a class="badge-app-store" href="#" style="margin:0 auto;">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.564 13.06c-.023-2.32 1.9-3.44 1.99-3.49-1.083-1.59-2.766-1.81-3.366-1.83-1.432-.148-2.803.848-3.538.848-.747 0-1.859-.832-3.05-.808-1.566.023-3.022.925-3.828 2.334-1.65 2.86-.421 7.096 1.19 9.413.793 1.132 1.732 2.402 2.96 2.356 1.2-.05 1.65-.763 3.099-.763 1.438 0 1.855.763 3.112.737 1.285-.023 2.096-1.147 2.88-2.287.917-1.31 1.29-2.593 1.313-2.66-.028-.012-2.52-.967-2.544-3.83zM15.22 5.73c.66-.807 1.104-1.92.982-3.03-.953.039-2.106.636-2.788 1.432-.612.703-1.147 1.834-1.003 2.92 1.065.082 2.151-.54 2.81-1.322z"/></svg>
+      <span><small>Download on the</small><span class="main">App Store</span></span>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap inner">
+    <div class="brand">
+      <img src="app-icon.png" alt="KcalzCounter" />
+      <span style="color:var(--text);">KcalzCounter</span>
+      <span style="margin-left:8px;">© 2026</span>
+    </div>
+    <div class="links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="mailto:felipe.demetrius@gmail.com">Contact</a>
+      <a href="#press">Press Kit</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function copyText(btn, id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    var text = el.innerText || el.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function() {
+        var original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(function(){ btn.textContent = original; }, 1400);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); btn.textContent = 'Copied!'; setTimeout(function(){btn.textContent='Copy';},1400); }
+      catch(e) {}
+      document.body.removeChild(ta);
+    }
+  }
+</script>
+</body>
+</html>

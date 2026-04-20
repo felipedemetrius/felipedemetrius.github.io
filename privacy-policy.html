@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KcalzCounter — Privacy Policy / Política de Privacidade</title>
+<style>
+  :root {
+    --bg: #0f1419; --surface: #1a2029; --surface-2: #242c38;
+    --text: #e8ecf1; --text-muted: #9aa4b2;
+    --accent: #4ade80; --accent-soft: rgba(74, 222, 128, 0.12);
+    --border: #2a3240; --max-width: 820px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 48px 24px 80px; }
+  header.page-header { display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-logo { width: 48px; height: 48px; border-radius: 12px; display: block; object-fit: cover;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35); }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; }
+  .lang-toggle { display: inline-flex; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px; }
+  .lang-toggle button { background: transparent; color: var(--text-muted); border: none;
+    padding: 8px 18px; border-radius: 999px; cursor: pointer; font-size: 14px; font-weight: 500;
+    transition: background 0.15s ease, color 0.15s ease; }
+  .lang-toggle button.active { background: var(--accent-soft); color: var(--accent); }
+  h1 { font-size: 34px; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .updated { color: var(--text-muted); font-size: 14px; margin-bottom: 32px; }
+  h2 { font-size: 22px; letter-spacing: -0.01em; margin: 40px 0 12px; color: var(--text); }
+  h3 { font-size: 17px; margin: 24px 0 8px; color: var(--text); }
+  p, li { color: var(--text); font-size: 16px; }
+  ul { padding-left: 22px; }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .callout { background: var(--accent-soft); border-left: 3px solid var(--accent);
+    padding: 14px 18px; border-radius: 8px; margin: 20px 0; color: var(--text); }
+  .lang-content { display: none; }
+  .lang-content.active { display: block; }
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 13px; text-align: center; }
+  @media (max-width: 540px) { .container { padding: 32px 18px 60px; }
+    h1 { font-size: 28px; } h2 { font-size: 19px; } }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header class="page-header">
+      <div class="brand">
+        <img class="brand-logo" src="app-icon.png" alt="KcalzCounter app icon" width="48" height="48" />
+        <div class="brand-name">KcalzCounter</div>
+      </div>
+      <div class="lang-toggle" role="tablist" aria-label="Language">
+        <button id="btn-en" class="active" onclick="setLang('en')" role="tab" aria-selected="true">EN</button>
+        <button id="btn-pt" onclick="setLang('pt')" role="tab" aria-selected="false">PT</button>
+      </div>
+    </header>
+
+    <section id="lang-en" class="lang-content active" lang="en">
+      <h1>Privacy Policy</h1>
+      <div class="updated">Last updated: April 20, 2026</div>
+      <p>This Privacy Policy describes how <strong>KcalzCounter</strong> ("the App", "we", "our") handles information when you use our iOS calorie and nutrition tracking application. We designed KcalzCounter with privacy in mind: your personal health information is primarily stored on your device and is not sent to our own servers.</p>
+      <div class="callout"><strong>TL;DR —</strong> Your profile, meals, weight history and food logs stay on your device and in your private iCloud. We do not operate a backend that collects your health data. We only share data with third parties when strictly needed to deliver a feature you actively use (e.g. food image recognition via OpenAI, or in-app purchases via Apple).</div>
+
+      <h2>1. Information We Handle</h2>
+      <h3>1.1 Information you provide during onboarding</h3>
+      <p>To personalize your calorie and macronutrient goals, the App asks you for:</p>
+      <ul><li>Name (or nickname)</li><li>Gender</li><li>Date of birth</li><li>Measurement system (metric / imperial)</li><li>Height and current weight</li><li>Goal (lose, maintain, or gain weight), target weight, activity level and pace</li></ul>
+      <p>This information is stored <strong>locally on your device</strong>. If you have iCloud enabled, it may also be backed up to your personal iCloud account under Apple's standard encryption and privacy terms.</p>
+
+      <h3>1.2 Food, meal and water logs</h3>
+      <p>Everything you log — meals, individual foods, portions, water intake and daily calorie entries — is kept on your device. We do not receive, read or store this information on any server we operate.</p>
+
+      <h3>1.3 Apple Health (HealthKit)</h3>
+      <p>With your explicit permission, KcalzCounter can read and write data to the Apple Health app, specifically:</p>
+      <ul><li>Active calories burned (read)</li><li>Body weight (read and write)</li></ul>
+      <p>HealthKit data stays on your device (and optionally in your encrypted iCloud Health backup). The App never transmits HealthKit data to our servers or to third parties. You may revoke HealthKit permissions at any time in <em>Settings → Privacy &amp; Security → Health → KcalzCounter</em>.</p>
+
+      <h3>1.4 Notifications</h3>
+      <p>If you allow notifications, reminders (meal times, water intake, weigh-in, etc.) are scheduled locally by iOS. We do not use push notifications from our own servers.</p>
+
+      <h3>1.5 Food image scanning (OpenAI)</h3>
+      <p>When you use the image scan feature to identify a meal, the photo you capture or select is sent to OpenAI's API for analysis and nutritional estimation. We do not attach your name, account ID or health profile to this request. The image is used only to return a meal estimate to your device. OpenAI's handling of API inputs is governed by their own terms — see <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">OpenAI's Privacy Policy</a>.</p>
+      <p>If you do not wish to share images with OpenAI, simply do not use the image scan feature and add meals manually instead.</p>
+
+      <h3>1.6 Subscriptions &amp; in-app purchases</h3>
+      <p>Paid plans are processed entirely by <strong>Apple</strong> through the App Store and StoreKit. We receive a transaction receipt to validate your subscription status, but we do not receive your payment card, full billing address or other financial data. Billing is governed by <a href="https://www.apple.com/legal/internet-services/itunes/" target="_blank" rel="noopener">Apple's Media Services terms</a>.</p>
+
+      <h3>1.7 Diagnostics and crash reports (Firebase)</h3>
+      <p>The App may use Firebase (provided by Google) to collect anonymous crash reports and basic usage diagnostics, so we can fix bugs and improve stability. These reports do not include your name, email, meals, weight or any health data. See <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase's Privacy &amp; Security information</a>.</p>
+
+      <h2>2. What We Do NOT Do</h2>
+      <ul><li>We do not sell your personal or health data to anyone.</li><li>We do not run our own backend that stores your meals, weight or HealthKit data.</li><li>We do not show third-party advertising inside the App.</li><li>We do not profile you for marketing purposes.</li></ul>
+
+      <h2>3. Children's Privacy</h2>
+      <p>KcalzCounter is not directed to children under 13 (or the minimum age required in your country). We do not knowingly collect data from children. If you believe a child has provided data to us, please contact us so we can take appropriate action.</p>
+
+      <h2>4. Your Rights &amp; Choices</h2>
+      <p>Because your data is stored on your device, you are in control of it:</p>
+      <ul><li><strong>Access / export:</strong> you can review your logs at any time inside the App.</li><li><strong>Edit:</strong> profile, goals, meals and weight entries can be edited or deleted.</li><li><strong>Delete:</strong> uninstalling the App removes all locally stored data on the device. If iCloud backup is enabled, you can also delete the App's data from iCloud in iOS Settings.</li><li><strong>Revoke permissions:</strong> HealthKit, Camera, Photos and Notifications can all be toggled in iOS Settings.</li></ul>
+      <p>Depending on where you live (e.g., EU/EEA under GDPR, Brazil under LGPD, California under CCPA), you may have additional rights, including the right to request information, correction or deletion of personal data we may process, and the right to lodge a complaint with your local data protection authority.</p>
+
+      <h2>5. Data Retention</h2>
+      <p>Local data is retained on your device until you delete it or uninstall the App. Image scan requests sent to OpenAI are retained according to OpenAI's retention policy. Anonymous diagnostic data in Firebase is retained according to Google's retention settings.</p>
+
+      <h2>6. Security</h2>
+      <p>We use HTTPS for all network requests and apply SSL certificate pinning for calls to OpenAI to reduce the risk of interception. No system is 100% secure, but we follow reasonable industry practices to protect data in transit.</p>
+
+      <h2>7. Changes to this Policy</h2>
+      <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last updated" date at the top. Material changes will be communicated inside the App or on our website.</p>
+
+      <h2>8. Contact</h2>
+      <p>If you have any questions, requests or concerns about this Privacy Policy, contact:</p>
+      <p><strong>KcalzCounter</strong><br />Email: <a href="mailto:felipe.demetrius@gmail.com">felipe.demetrius@gmail.com</a></p>
+    </section>
+
+    <section id="lang-pt" class="lang-content" lang="pt-BR">
+      <h1>Política de Privacidade</h1>
+      <div class="updated">Última atualização: 20 de abril de 2026</div>
+      <p>Esta Política de Privacidade descreve como o <strong>KcalzCounter</strong> ("o Aplicativo", "nós") trata informações quando você usa nosso aplicativo iOS de contagem de calorias e acompanhamento nutricional. O KcalzCounter foi desenhado com privacidade em mente: suas informações pessoais e de saúde ficam, sobretudo, armazenadas no seu dispositivo e não são enviadas a servidores próprios nossos.</p>
+      <div class="callout"><strong>Resumo —</strong> Seu perfil, refeições, histórico de peso e registros alimentares ficam no seu dispositivo e, se você usar, no seu iCloud pessoal. Não operamos um backend que armazene seus dados de saúde. Só compartilhamos dados com terceiros quando isso é estritamente necessário para uma funcionalidade que você escolhe usar (por exemplo, reconhecimento de imagem de alimentos via OpenAI, ou assinaturas via Apple).</div>
+
+      <h2>1. Informações que Tratamos</h2>
+      <h3>1.1 Informações fornecidas durante o onboarding</h3>
+      <p>Para personalizar suas metas de calorias e macronutrientes, o Aplicativo solicita:</p>
+      <ul><li>Nome (ou apelido)</li><li>Gênero</li><li>Data de nascimento</li><li>Sistema de medidas (métrico / imperial)</li><li>Altura e peso atual</li><li>Objetivo (perder, manter ou ganhar peso), peso-alvo, nível de atividade e ritmo</li></ul>
+      <p>Essas informações são armazenadas <strong>localmente no seu dispositivo</strong>. Se o iCloud estiver ativado, podem também ser copiadas para sua conta pessoal do iCloud, sob os termos de criptografia e privacidade padrão da Apple.</p>
+
+      <h3>1.2 Registros de alimentos, refeições e água</h3>
+      <p>Tudo o que você registra — refeições, alimentos individuais, porções, ingestão de água e calorias diárias — permanece no seu dispositivo. Não recebemos, lemos ou armazenamos essas informações em qualquer servidor operado por nós.</p>
+
+      <h3>1.3 Apple Saúde (HealthKit)</h3>
+      <p>Com sua permissão expressa, o KcalzCounter pode ler e escrever dados no aplicativo Saúde (HealthKit) da Apple, especificamente:</p>
+      <ul><li>Calorias ativas queimadas (leitura)</li><li>Peso corporal (leitura e escrita)</li></ul>
+      <p>Os dados do HealthKit permanecem no seu dispositivo (e, opcionalmente, no backup criptografado do iCloud Saúde). O Aplicativo jamais transmite dados de HealthKit aos nossos servidores ou a terceiros. Você pode revogar as permissões a qualquer momento em <em>Ajustes → Privacidade e Segurança → Saúde → KcalzCounter</em>.</p>
+
+      <h3>1.4 Notificações</h3>
+      <p>Se você autorizar notificações, os lembretes (horários de refeição, ingestão de água, pesagem etc.) são agendados localmente pelo iOS. Não utilizamos push notifications a partir de servidores próprios.</p>
+
+      <h3>1.5 Leitura de imagem de alimentos (OpenAI)</h3>
+      <p>Ao usar o recurso de escaneamento de imagem para identificar uma refeição, a foto capturada ou selecionada é enviada à API da OpenAI para análise e estimativa nutricional. Não anexamos seu nome, ID de conta ou perfil de saúde a essa requisição. A imagem é utilizada apenas para devolver a estimativa da refeição ao seu dispositivo. O tratamento de dados de entrada pela OpenAI segue os termos deles — consulte a <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">Política de Privacidade da OpenAI</a>.</p>
+      <p>Se você preferir não compartilhar imagens com a OpenAI, basta não utilizar o recurso de escaneamento e adicionar as refeições manualmente.</p>
+
+      <h3>1.6 Assinaturas e compras no aplicativo</h3>
+      <p>Planos pagos são processados integralmente pela <strong>Apple</strong>, via App Store e StoreKit. Recebemos apenas o recibo da transação para validar o status da sua assinatura; não recebemos dados de cartão, endereço completo de cobrança ou outras informações financeiras. O faturamento é regido pelos <a href="https://www.apple.com/legal/internet-services/itunes/br/terms.html" target="_blank" rel="noopener">Termos de Serviços de Mídia da Apple</a>.</p>
+
+      <h3>1.7 Diagnósticos e relatórios de falhas (Firebase)</h3>
+      <p>O Aplicativo pode utilizar o Firebase (fornecido pelo Google) para coletar relatórios anônimos de falhas e diagnósticos básicos de uso, para corrigirmos bugs e melhorar a estabilidade. Esses relatórios não incluem seu nome, e-mail, refeições, peso ou qualquer dado de saúde. Veja as <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">informações de Privacidade e Segurança do Firebase</a>.</p>
+
+      <h2>2. O que NÃO fazemos</h2>
+      <ul><li>Não vendemos seus dados pessoais ou de saúde a ninguém.</li><li>Não operamos backend próprio para armazenar refeições, peso ou dados do HealthKit.</li><li>Não exibimos publicidade de terceiros dentro do Aplicativo.</li><li>Não fazemos perfilamento para fins de marketing.</li></ul>
+
+      <h2>3. Privacidade de Crianças</h2>
+      <p>O KcalzCounter não se destina a crianças menores de 13 anos (ou da idade mínima exigida no seu país). Não coletamos dados de crianças de forma consciente. Se acreditar que uma criança nos forneceu dados, entre em contato para tomarmos as medidas cabíveis.</p>
+
+      <h2>4. Seus Direitos e Escolhas</h2>
+      <p>Como seus dados ficam no seu dispositivo, você tem controle sobre eles:</p>
+      <ul><li><strong>Acesso / exportação:</strong> você pode revisar seus registros a qualquer momento dentro do Aplicativo.</li><li><strong>Edição:</strong> perfil, metas, refeições e entradas de peso podem ser editados ou excluídos.</li><li><strong>Exclusão:</strong> ao desinstalar o Aplicativo, todos os dados armazenados localmente no dispositivo são removidos. Se o backup no iCloud estiver ativo, também é possível excluir os dados do App nos Ajustes do iOS.</li><li><strong>Revogar permissões:</strong> HealthKit, Câmera, Fotos e Notificações podem ser desativadas nos Ajustes do iOS.</li></ul>
+      <p>Conforme a sua localização (ex.: UE/EEE sob o GDPR, Brasil sob a LGPD, Califórnia sob o CCPA), você pode ter direitos adicionais, incluindo o de solicitar informações, correção ou exclusão de dados pessoais que porventura tratemos, e de apresentar reclamação à autoridade de proteção de dados competente (no Brasil, a ANPD).</p>
+
+      <h2>5. Retenção de Dados</h2>
+      <p>Dados locais permanecem no seu dispositivo até que você os exclua ou desinstale o Aplicativo. Requisições de escaneamento enviadas à OpenAI são mantidas conforme a política de retenção da OpenAI. Dados anônimos de diagnóstico no Firebase são mantidos conforme as configurações de retenção do Google.</p>
+
+      <h2>6. Segurança</h2>
+      <p>Usamos HTTPS em todas as requisições de rede e aplicamos SSL certificate pinning nas chamadas para a OpenAI, reduzindo o risco de interceptação. Nenhum sistema é 100% seguro, mas seguimos práticas razoáveis de mercado para proteger dados em trânsito.</p>
+
+      <h2>7. Alterações nesta Política</h2>
+      <p>Podemos atualizar esta Política de Privacidade periodicamente. Quando isso ocorrer, atualizaremos a data de "Última atualização" no topo. Mudanças relevantes serão comunicadas dentro do Aplicativo ou no nosso site.</p>
+
+      <h2>8. Contato</h2>
+      <p>Para dúvidas, solicitações ou preocupações sobre esta Política, entre em contato:</p>
+      <p><strong>KcalzCounter</strong><br />E-mail: <a href="mailto:felipe.demetrius@gmail.com">felipe.demetrius@gmail.com</a></p>
+    </section>
+
+    <footer>&copy; 2026 KcalzCounter. All rights reserved. / Todos os direitos reservados.</footer>
+  </div>
+
+<script>
+  function setLang(lang) {
+    var en = document.getElementById('lang-en');
+    var pt = document.getElementById('lang-pt');
+    var btnEn = document.getElementById('btn-en');
+    var btnPt = document.getElementById('btn-pt');
+    if (lang === 'pt') {
+      pt.classList.add('active'); en.classList.remove('active');
+      btnPt.classList.add('active'); btnEn.classList.remove('active');
+      btnPt.setAttribute('aria-selected', 'true'); btnEn.setAttribute('aria-selected', 'false');
+      document.documentElement.setAttribute('lang', 'pt-BR');
+      document.title = 'KcalzCounter — Política de Privacidade';
+    } else {
+      en.classList.add('active'); pt.classList.remove('active');
+      btnEn.classList.add('active'); btnPt.classList.remove('active');
+      btnEn.setAttribute('aria-selected', 'true'); btnPt.setAttribute('aria-selected', 'false');
+      document.documentElement.setAttribute('lang', 'en');
+      document.title = 'KcalzCounter — Privacy Policy';
+    }
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', '#' + lang);
+    }
+  }
+  (function init() {
+    var hash = (window.location.hash || '').replace('#', '').toLowerCase();
+    if (hash === 'pt' || hash === 'en') { setLang(hash); return; }
+    var userLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    if (userLang.indexOf('pt') === 0) { setLang('pt'); }
+  })();
+</script>
+</body>
+</html>
